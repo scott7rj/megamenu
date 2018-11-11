@@ -6,6 +6,7 @@
 <title>css grid 1</title>
 <!-- <link rel="stylesheet" type="text/css" href="css/lib/normalize.css"> -->
 <link href="css/lib/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="css/html.css">
 <link rel="stylesheet" type="text/css" href="css/forms.css">
 <style>
 * {
@@ -53,19 +54,19 @@ body {
 }
 #content > div {
 	background: #99ccff;
-	padding: 1em;
+	padding: 0.2em;
 }
 #content > div:nth-child(odd) {
 	background: #4da6ff;
 }
-#txtShortcut {
+#txtShortcut_FyeWgJ {
     background-image: url('img/target.svg');
     position: left;
     background-size: 15px;
     background-repeat: no-repeat;
     padding-left: 1.4em;
 }
-#txtSearch {
+#txtSearch_FyeWgJ {
     background-image: url('img/search.svg');
     position: left;
     background-size: 15px;
@@ -76,32 +77,45 @@ body {
 </head>
 <body>
 <div class="wrapper">
-	<div id="login">
-		<input type="text" id="txtMatricula" size="7" maxlength="7" placeholder="matricula">
-		<input type="password" id="txtSenha" size=8" maxlength="8" placeholder="senha">
-		<button class="app-btn" title="login" onclick="logon()">
+	<div id="login" clearable="f">
+		<input type="text" id="txtMatricula_FyeWgJ" size="7" maxlength="7" placeholder="matricula">
+		<input type="password" id="txtSenha_FyeWgJ" size=8" maxlength="8" placeholder="senha">
+		<button class="app-btn" title="login_FyeWgJ" onclick="logon()">
     		<span class='glyphicon glyphicon glyphicon-log-in glyphmenu'></span>
 		</button>
 		<button class="app-btn" title="logout" onclick="logoff()">
 		    <span class='glyphicon glyphicon glyphicon-log-out glyphmenu'></span>
 		</button>
 	</div>
-	<div id="user"></div>
-	<div id="search">
-		<input type="text" id="txtShortcut" size="12" maxlength="12" onkeyup="" placeholder="shortcut...">
-		<input type="text" id="txtSearch" size="30" maxlength="100" onkeyup="" placeholder="search...">
+	<div id="user" clearable="t"></div>
+	<div id="search" clearable="t">
+		<input type="text" id="txtShortcut_FyeWgJ" size="12" maxlength="12" onkeyup="" placeholder="shortcut...">
+		<input type="text" id="txtSearch_FyeWgJ" size="30" maxlength="100" onkeyup="myFunction()" placeholder="search...">
+		<div id="searchresults" clearable="t">
+			<ul id="myUL">
+			  <li><a href="#" onclick="reconfigure()">Adele</a></li>
+			  <li><a href="#">Agnes</a></li>
+			
+			  <li><a href="#">Billy</a></li>
+			  <li><a href="#">Bob</a></li>
+			
+			  <li><a href="#">Calvin</a></li>
+			  <li><a href="#">Christina</a></li>
+			  <li><a href="#">Cindy</a></li>
+			</ul>
+		</div>
 	</div>
-	<div id="content">
-		<div id="div1" clearable="x">1</div>
-		<div id="div2">2</div>
-		<div id="div3">3</div>
-		<div id="div4">4</div>
-		<div id="div5">5</div>
-		<div id="div6">6</div>
-		<div id="div7">7</div>
-		<div id="div8">8</div>
-		<div id="div9">9</div>
-		<div id="div10">10</div>
+	<div id="content" clearable="f">
+		<div id="div1_FyeWgJ" clearable="t">1</div>
+		<div id="div2_FyeWgJ" clearable="t">2</div>
+		<div id="div3_FyeWgJ" clearable="t">3</div>
+		<div id="div4_FyeWgJ" clearable="t">4</div>
+		<div id="div5_FyeWgJ" clearable="t">5</div>
+		<div id="div6_FyeWgJ" clearable="t">6</div>
+		<div id="div7_FyeWgJ" clearable="t">7</div>
+		<div id="div8_FyeWgJ" clearable="t">8</div>
+		<div id="div9_FyeWgJ" clearable="t">9</div>
+		<div id="div10_FyeWgJ" clearable="t">10</div>
 	</div>
 	
 	<!-- 
@@ -113,6 +127,32 @@ body {
 </div>
 <script src="js/lib/jquery-3.3.1.min.js" type="text/javascript"></script>
 <script>
+function reconfigure() {
+	$('#content').css({'grid-template-columns':'1fr'});
+
+	//grid-template-columns: repeat(auto-fill, minmax(500px,1fr));
+}
+function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("txtSearch_FyeWgJ");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        console.log(a.innerHTML);
+        if ($('#txtSearch_FyeWgJ').val() == '') {
+    		$("#myUL").hide();
+    		return;
+        }
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        	$("#myUL").show();
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
 function logon() {
 	console.log('logon');
 }
@@ -120,20 +160,23 @@ function logoff() {
 	console.log('logoff');
 	
 	$("div").each(function(i) {
-    	this.style.backgroundColor="red";
+    	//this.style.backgroundColor="red";
     	console.log($(this).attr('clearable'));
+    	if ($(this).attr('clearable') == 't') {
+    		$(this).html('');
+       	}
   	});
 }
 
 $( document ).ready(function() {
     console.log( "ready!" );
-    $('#txtMatricula').focus();
-
+    $('#txtMatricula_FyeWgJ').focus();
+    $("#myUL").hide();
     $(document).keypress(function(e) {
         if(e.which == 13) {
             console.log('You pressed enter!');
-            console.log($('#txtShortcut').is(':focus'));
-            console.log($('#txtSearch').is(':focus'));
+            console.log($('#txtShortcut_FyeWgJ').is(':focus'));
+            console.log($('#txtSearch_FyeWgJ').is(':focus'));
         }
     });
     
