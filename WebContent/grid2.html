@@ -78,7 +78,7 @@ body {
 <body>
 <div class="wrapper">
 	<div id="login" clearable="f">
-		<input type="text" id="txtMatricula_FyeWgJ" size="7" maxlength="7" placeholder="matricula">
+		<input type="text" id="txtMatricula_FyeWgJ" size="8" maxlength="7" placeholder="matricula">
 		<input type="password" id="txtSenha_FyeWgJ" size=8" maxlength="8" placeholder="senha">
 		<button class="app-btn" title="login_FyeWgJ" onclick="logon()">
     		<span class='glyphicon glyphicon glyphicon-log-in glyphmenu'></span>
@@ -91,10 +91,13 @@ body {
 	<div id="search" clearable="t">
 		<input type="text" id="txtShortcut_FyeWgJ" size="12" maxlength="12" onkeyup="" placeholder="shortcut...">
 		<input type="text" id="txtSearch_FyeWgJ" size="30" maxlength="100" onkeyup="myFunction()" placeholder="search...">
+		<button class="app-btn" title="menu	" onclick="">
+		    <span class='glyphicon glyphicon glyphicon-th-list glyphmenu'></span>
+		</button>
 		<div id="searchresults" clearable="t">
 			<ul id="myUL">
-			  <li><a href="#" onclick="reconfigure()">Adele</a></li>
-			  <li><a href="#">Agnes</a></li>
+			  <li><a href="#" onclick="reconfigure('layout1')">Adele</a></li>
+			  <li><a href="#" onclick="reconfigure('layout2')">Agnes</a></li>
 			
 			  <li><a href="#">Billy</a></li>
 			  <li><a href="#">Bob</a></li>
@@ -116,6 +119,8 @@ body {
 		<div id="div8_FyeWgJ" clearable="t">8</div>
 		<div id="div9_FyeWgJ" clearable="t">9</div>
 		<div id="div10_FyeWgJ" clearable="t">10</div>
+		<div id="div11_FyeWgJ" clearable="t">11</div>
+		<div id="div12_FyeWgJ" clearable="t">12</div>
 	</div>
 	
 	<!-- 
@@ -127,9 +132,15 @@ body {
 </div>
 <script src="js/lib/jquery-3.3.1.min.js" type="text/javascript"></script>
 <script>
-function reconfigure() {
-	$('#content').css({'grid-template-columns':'1fr'});
-
+function reconfigure(layout) {
+	if (layout === 'layout1') {
+		$('#content').css({'grid-template-columns':'1fr'});
+	}
+	if (layout === 'layout2') {
+		$('#content').css({'grid-template-columns':'1fr 1fr 1fr'});
+	}
+	$('#txtSearch_FyeWgJ').val('');
+	$("#myUL").hide();
 	//grid-template-columns: repeat(auto-fill, minmax(500px,1fr));
 }
 function myFunction() {
@@ -177,6 +188,12 @@ $( document ).ready(function() {
             console.log('You pressed enter!');
             console.log($('#txtShortcut_FyeWgJ').is(':focus'));
             console.log($('#txtSearch_FyeWgJ').is(':focus'));
+            if($('#txtShortcut_FyeWgJ').is(':focus') == true) {
+            	$('#txtShortcut_FyeWgJ').val('');
+            }
+            if($('#txtSearch_FyeWgJ').is(':focus') == true) {
+            	$('#txtSearch_FyeWgJ').val('');
+            }
         }
     });
     
