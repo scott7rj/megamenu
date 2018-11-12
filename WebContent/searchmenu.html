@@ -74,11 +74,23 @@ body {
       <li>
       	<a href="#">HTML</a>
       	<ul>
-      		<li><a href="#">HTML5</a></li>
+      		<li>
+      			<a href="#">HTML5</a>
+      			<ul>
+		      		<li><a href="#">HTML555</a></li>
+		      		<li><a href="#">HTML551</a></li>
+		      	</ul>	
+      		</li>
       		<li><a href="#">XML</a></li>
       	</ul>
       </li>
-      <li><a href="#">CSS</a></li>
+      <li>
+      	<a href="#">CSS</a>
+      	<ul>
+      		<li><a href="#">HTML6</a></li>
+      		<li><a href="#">XHTML</a></li>
+      	</ul>
+      </li>
       <li><a href="#">JavaScript</a></li>
       <li><a href="#">PHP</a></li>
       <li><a href="#">Python</a></li>
@@ -119,6 +131,11 @@ function search() {
 				console.log(a.innerHTML.toUpperCase().indexOf(filter));
 				console.log(a.innerHTML + " : " + li[i].parentNode.parentNode.nodeName);
 				li[i].style.display = "";
+				
+				if (li[i].parentNode.parentNode.parentNode.parentNode.nodeName === 'LI') {
+			 		li[i].parentNode.parentNode.parentNode.parentNode.style.display = "";
+			 	}
+			 	 
 			 	if (li[i].parentNode.parentNode.nodeName === 'LI') {
 			 		li[i].parentNode.parentNode.style.display = "";
 			 	} 
